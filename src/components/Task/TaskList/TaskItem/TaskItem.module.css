@@ -1,0 +1,35 @@
+.tasklist {
+    overflow: auto;
+    width: 600px;
+    padding: 15px;
+    margin: 20px;
+    border: 1px solid black;
+    box-shadow: 5px 10px 10px #888888;
+    background-color: var(--priorityColor);
+    border-radius: 10px;
+    text-align: left;
+}
+
+.text {
+    padding-left: 10px; 
+}
+
+.iconPanel {
+    
+}
+
+.right {
+    float:right;
+    display: flex;
+    flex-direction: column;
+}
+
+.completed{
+    text-decoration: line-through;
+}
+
+.time{
+    float:right;
+    padding-right:10px ;
+    padding-top: 6px;
+}

@@ -1,0 +1,14 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    
+}
+
+.app{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: stretch
+}
