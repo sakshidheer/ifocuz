@@ -4,7 +4,7 @@ import ExpandableNavSection from "../ExpandableNavSection/ExpandableNavSection";
 import db from "../../database";
 import { useLiveQuery } from "dexie-react-hooks";
 import { v4 } from "uuid";
-
+import {ProjectLists} from '../../db/ProjectDBUtil'
 const SideDrawer = (props) => {
   const onProjectDoneBtnclick = (item) => {
     if (item.id) db.projects.update(item.id, {name :item.name});
@@ -18,9 +18,7 @@ const SideDrawer = (props) => {
   const onDelete = (id) =>{
     db.projects.where("id").equals(id).delete();
   }
-  let projects = useLiveQuery(() => {
-    return db.projects.toArray();
-  });
+  let projects = ProjectLists();
   return (
     <div
       className={classes.SideDrawer}

@@ -3,13 +3,16 @@ import classes from './TaskForm.module.css';
 import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import database from '../../../database';
-import { RadioGroup, Radio, Button, FormControlLabel, TextField, InputLabel, FormControl, Select } from '@material-ui/core';
+import { Button, TextField, InputLabel } from '@material-ui/core';
 import {
     DateTimePicker, MuiPickersUtilsProvider
 
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns'
-import { useLiveQuery } from "dexie-react-hooks";
+
+import PriorityButtons from './PriorityButtons/PriorityButtons';
+import ProjectButtons from './Projects/Projects';
+import Labels from './Labels/Labels';
 
 const TaskForm = (props) => {
     let [task, setTask] = useState('');
@@ -18,11 +21,12 @@ const TaskForm = (props) => {
     let [label, setLabel] = useState(props.labels[0].value);
     let [taskValid, setTaskValid] = useState(true);
     let [finishDateValid, setFinishDateValid] = useState(true);
-    let projects = useLiveQuery(() => {
-        return database.projects.toArray();
-    });
-    let [project, setProject] = useState(projects ? projects[0] : '');
 
+    let [project, setProject] = useState('');
+
+    const onProjectChange = (e) => {
+        setProject(e.target.value)
+    }
     const resetForm = () => {
         setTask('')
         setFinishTime(new Date());
@@ -55,35 +59,15 @@ const TaskForm = (props) => {
             finishTime: finishTime,
             priority: priority,
             label: label,
-            status: 0
+            status: 0,
+            project: project
         });
         resetForm();
     };
     const onPriorityChange = (e) => {
         setPriority(e.target.value);
     }
-    let radioButtons = Object.entries(props.priorities).map(item => {
-        let [key, value] = item;
-        return <FormControlLabel
-            value={key}
-            key={key}
-            control={<Radio />}
-            style={{ '--labelColor': value }}
-            label={key}
-            className={classes.radioButton} />
-    });
-    let labelItem = props.labels.map(item => {
-        return <option
-            value={item.value}
-            key={item.value}>{item.displayName}</option>;
-    })
-    let projectItems = null;
-    if (projects != null)
-        projectItems = projects.map(item => {
-            return <option
-                value={item.id}
-                key={item.id}>{item.name}</option>;
-        })
+
     return <div className={classes.taskform}>
         <TextField
             id="task"
@@ -111,56 +95,23 @@ const TaskForm = (props) => {
             />
         </MuiPickersUtilsProvider>
         <div style={{ padding: '10px' }}></div>
-
-        <InputLabel margin='dense' variant="outlined" shrink>Priority</InputLabel>
-        <RadioGroup
-            aria-label="priority"
-            name="priority"
-            value={priority}
-            onChange={onPriorityChange} row>
-            {radioButtons}
-        </RadioGroup>
-        
-        <FormControl
-            fullWidth
-            variant="outlined"
-            margin="normal">
-            <InputLabel htmlFor="outlined-label-native-simple">Label</InputLabel>
-            <Select
-                native
-                label="label"
-                value={label}
-                onChange={(e) => setLabel(e.target.value)}
-            >
-                {labelItem}
-            </Select>
-        </FormControl>
+        <Labels labels={props.labels} setLabel={setLabel} />
+        <PriorityButtons
+            priority={props.priority}
+            onPriorityChange={onPriorityChange}
+            priorities={props.priorities} />
         <div style={{ padding: '10px' }}></div>
-        <FormControl
-            fullWidth
-            variant="outlined">
-            <InputLabel shrink htmlFor="outlined-project-native-simple">Project</InputLabel>
-            <Select
-                native
-                margin="normal"
-                id="outlined-project-native-simple"
-                label="project"
-                value={project}
-                onChange={(e) => setLabel(e.target.value)}
-            >
-                {projectItems}
-            </Select>
-        </FormControl>
+        <ProjectButtons
+            project={project}
+            onProjectChange={onProjectChange} />
         <div className={classes.addContainer}>
             <Button variant="contained" color="secondary" onClick={addTask}>
                 Add Task
-        </Button>
+            </Button>
         </div>
 
     </div>
 };
-
-
 
 const mapStateToProps = state => {
     return {
@@ -169,9 +120,4 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onAddTask: (task) => dispatch({ type: 'ADD_TASK', task: task })
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
+export default connect(mapStateToProps)(TaskForm);

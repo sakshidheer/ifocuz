@@ -7,9 +7,6 @@
     text-align: left;
 }
 
-.radioButton {
-    color: var(--labelColor);
-}
 
 .addContainer {
     margin-top: 10px;

@@ -17,6 +17,7 @@ const compare = (a, b) => {
     return comparison;
 }
 const TaskList = props => {
+    
     let firstSecondDate = new Date(new Date().setHours(0, 0, 0)),
         lastSecondDate = new Date(new Date().setHours(23, 59, 59));
     let todolist = useLiveQuery(
@@ -44,6 +45,8 @@ const TaskList = props => {
             color={props.priorities[task.priority]}
             onStatusIconClick={() => onStatusIconClickHandler(task)} />
     });
+
+
     return <div>
         {tasks}
     </div>

@@ -2,7 +2,7 @@ import Dexie from 'dexie';
 
 const db = new Dexie('myDb');
 db.version(1).stores({
-    todolist: `id,task, finishTime,priority,label,status`,
+    todolist: `id,task, finishTime,priority,label,status,project`,
     projects :`id,name`
 });
 db.open();
