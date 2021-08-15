@@ -13,7 +13,7 @@ function App() {
 
   
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/ifocuz">
       <div className={classes.app}>
         <Header onListIconClick={()=> setShowSideBar(!showSideBar)}/>
         <div className={classes.main}>

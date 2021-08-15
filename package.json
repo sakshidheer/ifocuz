@@ -2,6 +2,7 @@
   "name": "ifocuz",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/ifocuz",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@iconify-icons/ant-design": "^1.1.0",
