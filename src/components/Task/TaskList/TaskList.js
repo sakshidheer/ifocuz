@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TaskItem from './TaskItem/TaskItem';
 import { connect } from 'react-redux';
 import { useLiveQuery } from 'dexie-react-hooks';
 import database from '../../../database';
+import { useParams, useLocation } from 'react-router';
+import { getProjectIdByName } from '../../../db/ProjectDBUtil'
 
 const compare = (a, b) => {
     const upperA = a.priority.toUpperCase();
@@ -17,7 +19,9 @@ const compare = (a, b) => {
     return comparison;
 }
 const TaskList = props => {
-    
+    let  projectName  = useParams();
+    let location = useLocation();
+    debugger;
     let firstSecondDate = new Date(new Date().setHours(0, 0, 0)),
         lastSecondDate = new Date(new Date().setHours(23, 59, 59));
     let todolist = useLiveQuery(
@@ -34,6 +38,20 @@ const TaskList = props => {
         });
     if (props.hideDone) {
         todolist = todolist.filter(todo => todo.status !== 2);
+    }
+
+    if (todolist && location && location.state && location.state.id) {
+        let projectId= location.state.id;
+        /*setTimeout(function () {
+            getProjectIdByName(params.projectId).then(project => {
+                projectId = project.id;
+                if (todolist)
+                todolist = todolist.filter(todo => todo.project == projectId);
+            })
+        }, 1000);
+        */
+         todolist = todolist.filter(todo => todo.project === projectId);
+
     }
 
     // If default values are returned, queries are still loading:

@@ -41,9 +41,13 @@ const EditableNavLink = (props) => {
       onBlur={() => setEditable(false)} />;
   }
   else {
+    let toPath = "/projects/"+props.name;
     item = (
       <div>
-        <NavLink activeClassName={classes.active} to="/projects/:category">
+        <NavLink activeClassName={classes.active} to={{
+          pathname: toPath, 
+          state:{id:props.id}
+          }}>
           {props.name}
         </NavLink>
         <IconButton className={[classes.button, classes.editIcon].join(" ")}>

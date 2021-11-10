@@ -10,6 +10,7 @@ const Home = props => {
         <FormControlLabel
             control={<Switch checked={hideDone} onChange={(e) => setHideDone(e.target.checked)} name="gilad" />}
             label="Hide Done"
+            style={{marginLeft:'5px'}}
         />
         <TaskList today={true} hideDone={hideDone} /></div>
 

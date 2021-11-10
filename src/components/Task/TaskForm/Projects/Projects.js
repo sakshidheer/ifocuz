@@ -1,4 +1,4 @@
-import {InputLabel, FormControl, Select } from '@material-ui/core';
+import {InputLabel, FormControl, Select,MenuItem } from '@material-ui/core';
 import {ProjectLists} from '../../../../db/ProjectDBUtil';
 
 const ProjectButtons = (props) => {
@@ -6,9 +6,9 @@ const ProjectButtons = (props) => {
     let projectItems = null;
     if (projects != null)
         projectItems = projects.map(item => {
-            return <option
+            return <MenuItem
                 value={item.id}
-                key={item.id}>{item.name}</option>;
+                key={item.id}>{item.name}</MenuItem>;
         })
     return (
         <FormControl
@@ -16,7 +16,7 @@ const ProjectButtons = (props) => {
             variant="outlined">
             <InputLabel shrink htmlFor="outlined-project-native-simple">Project</InputLabel>
             <Select
-                native
+                
                 margin="normal"
                 id="outlined-project-native-simple"
                 label="project"
