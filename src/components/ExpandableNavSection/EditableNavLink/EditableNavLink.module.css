@@ -18,3 +18,7 @@
 .buttonContainer {
     
 }
+.editablenav a.active{
+    color: #e80f2d;
+    font-weight: bold;
+}

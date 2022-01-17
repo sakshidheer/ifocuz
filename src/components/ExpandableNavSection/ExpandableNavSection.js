@@ -3,6 +3,7 @@ import { IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
 import InputNavItem from "./InputNavItem/InputNavItem";
+import classes from './ExpandableNavSection.module.css'
 
 const ExpandableNavSection = (props) => {
   const [addNewItem, setAddNewItem] = useState(false);
@@ -33,7 +34,7 @@ const ExpandableNavSection = (props) => {
   onDoneclick={onDoneclick}
   onBlur={onInputNavItemBlur} />;
   return (
-    <div>
+    <div className={classes.navSec}>
       <div>
         <span>{props.sectionName}</span>
         <IconButton onClick={addClick}>

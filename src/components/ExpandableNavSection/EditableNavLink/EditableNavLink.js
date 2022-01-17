@@ -43,7 +43,7 @@ const EditableNavLink = (props) => {
   else {
     let toPath = "/projects/"+props.name;
     item = (
-      <div>
+      <div className={classes.editablenav}>
         <NavLink activeClassName={classes.active} to={{
           pathname: toPath, 
           state:{id:props.id}
