@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import classes from './TaskItem.module.css';
 import { Icon } from '@iconify/react';
 import hourglassStart from '@iconify-icons/vaadin/hourglass-start';
@@ -7,15 +7,9 @@ import hourglassSplit from '@iconify-icons/bi/hourglass-split';
 import Chip from '@material-ui/core/Chip';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { Fragment } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import database from '../../../../database';
-import Button from '@material-ui/core/Button';
+import DeleteConfirmDialogue from '../../../DeleteConfirmDialogue/DeleteConfirmDialogue';
+import { ProjectLists } from '../../../../db/ProjectDBUtil';
 
 const TaskItem = props => {
     let [open, setOpen] = useState(false);
@@ -36,6 +30,13 @@ const TaskItem = props => {
         //database.todolist
         setOpen(false);
     }
+    let projects = ProjectLists();
+    let project = null, projectSec= null;
+    if (projects != null){
+        project = projects.find(item => item.id === props.project);
+        projectSec = <div className={classes.projectSec}>{project.name}</div>
+    }
+        
     return (
         <Fragment>
             <div
@@ -48,6 +49,7 @@ const TaskItem = props => {
                     height="15"
                     onClick={props.onStatusIconClick} />
                 <span className={classes.text}>{props.task}</span>
+                
                 <span className={classes.right}>
                     <span className={classes.iconPanel}>
                         <EditIcon style={{ color: '#137eec' }} fontSize="small" />
@@ -60,33 +62,18 @@ const TaskItem = props => {
                         label={props.label}
                         className={classes.label}
                     />
+                    
                 </span>
 
 
                 <div className={classes.time}>
-                    {props.finishTime.getHours()}:{props.finishTime.getMinutes() === 0 ? '00' : props.finishTime.getMinutes()}</div>
-
-            </div><Dialog
-                open={open}
+                    {/*props.finishTime.getHours()}:{props.finishTime.getMinutes() === 0 ? '00' : props.finishTime.getMinutes()*/}</div>
+                    {projectSec}
+            </div>
+            <DeleteConfirmDialogue
                 onClose={handleDialogueClose}
-            >
-                <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-                    Delete
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Are you sure you want to proceed with delete?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus color="primary" onClick={handleDialogueClose}>
-                        Cancel
-                    </Button>
-                    <Button color="primary" onClick={() => { props.onDelete(props.id); setOpen(false) }}>
-                        Delete
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                open={open}
+                onDelete={() => { props.onDelete(props.id); setOpen(false) }} />
         </Fragment>
     )
 };

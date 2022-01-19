@@ -15,17 +15,22 @@
 }
 
 .iconPanel {
-    
+    padding-top: 6px;
 }
 
 .right {
     float:right;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .completed{
     text-decoration: line-through;
+}
+
+.projectSec{
+    padding-left: 23px; 
+    font-size: small;
 }
 
 .time{

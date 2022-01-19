@@ -3,7 +3,7 @@ import classes from './TaskForm.module.css';
 import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import database from '../../../database';
-import { Button, TextField, InputLabel } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import {
     DateTimePicker, MuiPickersUtilsProvider
 

@@ -2,7 +2,6 @@ import classes from "./SideDrawer.module.css";
 import { NavLink } from "react-router-dom";
 import ExpandableNavSection from "../ExpandableNavSection/ExpandableNavSection";
 import db from "../../database";
-import { useLiveQuery } from "dexie-react-hooks";
 import { v4 } from "uuid";
 import {ProjectLists} from '../../db/ProjectDBUtil'
 const SideDrawer = (props) => {

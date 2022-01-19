@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
 import TaskItem from './TaskItem/TaskItem';
 import { connect } from 'react-redux';
 import { useLiveQuery } from 'dexie-react-hooks';
 import database from '../../../database';
-import { useParams, useLocation } from 'react-router';
-import { getProjectIdByName } from '../../../db/ProjectDBUtil'
+import { useLocation } from 'react-router';
 
 const compare = (a, b) => {
     const upperA = a.priority.toUpperCase();
@@ -19,9 +17,7 @@ const compare = (a, b) => {
     return comparison;
 }
 const TaskList = props => {
-    let  projectName  = useParams();
     let location = useLocation();
-    debugger;
     let firstSecondDate = new Date(new Date().setHours(0, 0, 0)),
         lastSecondDate = new Date(new Date().setHours(23, 59, 59));
     let todolist = useLiveQuery(
@@ -41,7 +37,7 @@ const TaskList = props => {
     }
 
     if (todolist && location && location.state && location.state.id) {
-        let projectId= location.state.id;
+        let projectId = location.state.id;
         /*setTimeout(function () {
             getProjectIdByName(params.projectId).then(project => {
                 projectId = project.id;
@@ -50,10 +46,14 @@ const TaskList = props => {
             })
         }, 1000);
         */
-         todolist = todolist.filter(todo => todo.project === projectId);
+        todolist = todolist.filter(todo => todo.project === projectId);
 
     }
 
+    let onTaskDelete = (id) => {
+        console.log(id);
+        database.todolist.where("id").equals(id).delete();
+    }
     // If default values are returned, queries are still loading:
     if (!todolist) return null;
     let tasks = todolist.sort(compare).map(task => {
@@ -61,10 +61,11 @@ const TaskList = props => {
             {...task}
             key={task.id}
             color={props.priorities[task.priority]}
+            onDelete={onTaskDelete}
             onStatusIconClick={() => onStatusIconClickHandler(task)} />
     });
 
-
+    
     return <div>
         {tasks}
     </div>

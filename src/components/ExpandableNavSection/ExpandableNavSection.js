@@ -27,6 +27,7 @@ const ExpandableNavSection = (props) => {
       return <EditableNavLink 
       name={item.name} 
       id={item.id} 
+      key={item.id}
       onDoneclick={onDoneclick}
       onDelete={props.onDelete}/>;
     });

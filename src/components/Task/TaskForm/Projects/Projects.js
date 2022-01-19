@@ -17,7 +17,7 @@ const ProjectButtons = (props) => {
             <InputLabel shrink htmlFor="outlined-project-native-simple">Project</InputLabel>
             <Select
                 
-                margin="normal"
+                margin="none"
                 id="outlined-project-native-simple"
                 label="project"
                 value={props.project}

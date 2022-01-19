@@ -6,12 +6,7 @@ import InputNavItem from "../InputNavItem/InputNavItem";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Fragment } from "react";
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DeleteConfirmDialogue from '../../DeleteConfirmDialogue/DeleteConfirmDialogue';
 
 const EditableNavLink = (props) => {
   let [editable, setEditable] = useState(false);
@@ -25,11 +20,11 @@ const EditableNavLink = (props) => {
 
   let [open, setOpen] = useState(false);
 
-  const onDeleteClick = props => {
+  const onDeleteClick = () => {
     setOpen(true);
   }
 
-  const handleDialogueClose = props => {
+  const handleDialogueClose = () => {
     setOpen(false);
   }
   let item = null;
@@ -41,46 +36,30 @@ const EditableNavLink = (props) => {
       onBlur={() => setEditable(false)} />;
   }
   else {
-    let toPath = "/projects/"+props.name;
+    let toPath = "/projects/" + props.name;
     item = (
       <div className={classes.editablenav}>
         <NavLink activeClassName={classes.active} to={{
-          pathname: toPath, 
-          state:{id:props.id}
-          }}>
+          pathname: toPath,
+          state: { id: props.id }
+        }}>
           {props.name}
         </NavLink>
-        <IconButton className={[classes.button, classes.editIcon].join(" ")}>
-          <EditIcon onClick={onEditButtonClick} />
+        <IconButton className={[classes.button, classes.editIcon].join(" ")} onClick={onEditButtonClick}>
+          <EditIcon />
         </IconButton>
-        <IconButton className={[classes.button, classes.deleteIcon].join(" ")}>
-          <DeleteIcon onClick={onDeleteClick} />
+        <IconButton className={[classes.button, classes.deleteIcon].join(" ")} onClick={onDeleteClick}>
+          <DeleteIcon />
         </IconButton>
-      </div>
+      </div> 
     );
   }
   return <Fragment>{item}
-    <Dialog
-      open={open}
+    <DeleteConfirmDialogue
       onClose={handleDialogueClose}
-    >
-      <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-        Delete
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Are you sure you want to proceed with delete?
-    </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus color="primary" onClick={handleDialogueClose}>
-          Cancel
-    </Button>
-        <Button color="primary" onClick={() => { props.onDelete(props.id); setOpen(false) }}>
-          Delete
-    </Button>
-      </DialogActions>
-    </Dialog></Fragment>;
+      open={open}
+      onDelete={() => { props.onDelete(props.id); setOpen(false) }} />
+  </Fragment>;
 };
 
 export default EditableNavLink;
