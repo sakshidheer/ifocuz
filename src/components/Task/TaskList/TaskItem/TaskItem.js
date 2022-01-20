@@ -31,12 +31,12 @@ const TaskItem = props => {
         setOpen(false);
     }
     let projects = ProjectLists();
-    let project = null, projectSec= null;
-    if (projects != null){
+    let project = null, projectSec = null;
+    if (projects != null) {
         project = projects.find(item => item.id === props.project);
         projectSec = <div className={classes.projectSec}>{project.name}</div>
     }
-        
+
     return (
         <Fragment>
             <div
@@ -49,10 +49,10 @@ const TaskItem = props => {
                     height="15"
                     onClick={props.onStatusIconClick} />
                 <span className={classes.text}>{props.task}</span>
-                
+
                 <span className={classes.right}>
                     <span className={classes.iconPanel}>
-                        <EditIcon style={{ color: '#137eec' }} fontSize="small" />
+                        <EditIcon style={{ color: '#137eec' }} fontSize="small" onClick={props.onTaskEditClick}/>
                         <DeleteIcon color="secondary" fontSize="small" onClick={onDeleteIconClick} />
                     </span>
 
@@ -62,13 +62,9 @@ const TaskItem = props => {
                         label={props.label}
                         className={classes.label}
                     />
-                    
+
                 </span>
-
-
-                <div className={classes.time}>
-                    {/*props.finishTime.getHours()}:{props.finishTime.getMinutes() === 0 ? '00' : props.finishTime.getMinutes()*/}</div>
-                    {projectSec}
+                {projectSec}
             </div>
             <DeleteConfirmDialogue
                 onClose={handleDialogueClose}

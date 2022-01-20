@@ -6,7 +6,7 @@ const Task = () => {
     return <div className={classes.container}>
         <TaskForm />
         <TaskList />
-        </div>
+    </div>
 }
 
 export default Task;

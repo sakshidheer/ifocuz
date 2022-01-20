@@ -31,10 +31,15 @@
 .projectSec{
     padding-left: 23px; 
     font-size: small;
+    color: green;
 }
 
 .time{
     float:right;
     padding-right:10px ;
     padding-top: 6px;
+}
+
+.iconPanel svg {
+    cursor: pointer;
 }
