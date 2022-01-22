@@ -1,39 +1,30 @@
-import EditableNavLink from "./EditableNavLink/EditableNavLink";
 import { IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useState } from "react";
-import InputNavItem from "./InputNavItem/InputNavItem";
-import classes from './ExpandableNavSection.module.css'
-
+import classes from './ExpandableNavSection.module.css';
+import ProjectForm from '../Projects/ProjectForm/ProjectForm';
+import { NavLink } from "react-router-dom";
 const ExpandableNavSection = (props) => {
-  const [addNewItem, setAddNewItem] = useState(false);
-  //addNewNavItem
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  let form = null;
+  if (showProjectForm)
+    form = <ProjectForm />
+
   const addClick = () => {
-    setAddNewItem(true);
+    setShowProjectForm(true);
   };
 
-  const onDoneclick = (item) => {
-    props.onDoneclick(item);
-    setAddNewItem(false);
-  };
-
-  const onInputNavItemBlur = () => {
-    setAddNewItem(false);
-  }
-  let newitem = null,
-    items = [];
+  let items = [];
   if (props.items)
     items = props.items.map((item) => {
-      return <EditableNavLink 
-      name={item.name} 
-      id={item.id} 
-      key={item.id}
-      onDoneclick={onDoneclick}
-      onDelete={props.onDelete}/>;
+      let toPath = "/projects/" + item.name;
+      return <NavLink activeClassName={classes.active} to={{
+        pathname: toPath,
+        state: { id: item.id }
+      }}>
+        {item.name}
+      </NavLink>
     });
-  if (addNewItem) newitem = <InputNavItem 
-  onDoneclick={onDoneclick}
-  onBlur={onInputNavItemBlur} />;
   return (
     <div className={classes.navSec}>
       <div>
@@ -43,7 +34,7 @@ const ExpandableNavSection = (props) => {
         </IconButton>
       </div>
       {items}
-      {newitem}
+      {form}
     </div>
   );
 };

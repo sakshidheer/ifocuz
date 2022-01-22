@@ -62,6 +62,7 @@ const TaskList = props => {
             key={task.id}
             color={props.priorities[task.priority]}
             onDelete={onTaskDelete}
+            editable={props.editable}
             onStatusIconClick={() => onStatusIconClickHandler(task)} />
     });
 

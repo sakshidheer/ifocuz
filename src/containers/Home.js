@@ -12,7 +12,7 @@ const Home = props => {
             label="Hide Done"
             style={{marginLeft:'5px'}}
         />
-        <TaskList today={true} hideDone={hideDone} /></div>
+        <TaskList today={true} hideDone={hideDone} editable={false}/></div>
 
 }
 

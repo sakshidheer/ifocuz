@@ -3,3 +3,13 @@
     padding-left: 15px;
     padding-bottom: 15px;
 }
+
+.navSec{
+    display: flex;
+    flex-direction: column;
+}
+
+.navSec a.active{
+    color: #e80f2d;
+    font-weight: bold;
+}
