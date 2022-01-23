@@ -8,6 +8,7 @@ import { useState } from 'react';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import classes from './App.module.css';
 import TaskList from './components/Task/TaskList/TaskList';
+import Project from './containers/Project/Project';
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(true);
@@ -27,7 +28,7 @@ function App() {
             <Tasks />
           </Route>
           <Route path="/projects/:projectName" exact>
-            <TaskList />
+            <Project />
           </Route>
         </div>
 

@@ -1,15 +1,22 @@
-import { TextField } from '@material-ui/core';
+import { Button, TextField, Paper, InputLabel } from '@material-ui/core';
 import { useState } from 'react';
 import classes from './ProjectForm.module.css';
 import { CirclePicker } from 'react-color';
-import { FormLabel } from '@material-ui/core';
 
-const ProjectForm = () => {
-    let [name, setName] = useState(null);
+const ProjectForm = (props) => {
+    let [name, setName] = useState(props.name);
     let [isNameValid, setIsNameValid] = useState(true);
+    let [theme, setTheme] = useState('#ccc');
+    const onAddClick = (e) =>{
+        props.onAdd({
+            name: name,
+            theme: theme
+        });
+        e.stopPropagation();
+    }
     return (
-        <div className={classes.container}>
-            <div className={classes.form}>
+        <div className={classes.container} onClick={props.onClose}>
+            <Paper className={classes.form} onClick={(e) =>  e.stopPropagation()}>
                 <div>Add New Project</div>
                 <TextField
                     id="name"
@@ -26,10 +33,21 @@ const ProjectForm = () => {
                     }}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <FormLabel>Theme</FormLabel>
-                <CirclePicker triangle="hide"/>
-            </div>
-
+                <fieldset className={classes.theme}>
+                    <legend>Theme</legend>
+                    <CirclePicker 
+                        color={theme} 
+                        triangle="hide" 
+                        className={classes.themepicker} 
+                        onChangeComplete={(color, event) => setTheme(color.hex) }/>
+                </fieldset>
+                <div className={classes.btnContainer}>
+                    <Button variant="contained"
+                        color="secondary" onClick={onAddClick}>
+                        Add Task
+                    </Button>
+                </div>
+            </Paper>
         </div>
     )
 }
