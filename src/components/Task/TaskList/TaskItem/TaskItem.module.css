@@ -8,6 +8,7 @@
     background-color: var(--priorityColor);
     border-radius: 10px;
     text-align: left;
+    background-color: white;
 }
 
 .text {

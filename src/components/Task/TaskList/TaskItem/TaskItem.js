@@ -34,7 +34,7 @@ const TaskItem = props => {
     let project = null, projectSec = null;
     if (projects != null) {
         project = projects.find(item => item.id === props.project);
-        projectSec = <div className={classes.projectSec}>{project.name}</div>
+        projectSec = project ? <div className={classes.projectSec}>{project.name}</div>: null;
     }
     let editable = props.editable == null ? true : props.editable;
     return (
