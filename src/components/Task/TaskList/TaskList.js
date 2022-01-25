@@ -63,6 +63,7 @@ const TaskList = props => {
             color={props.priorities[task.priority]}
             onDelete={onTaskDelete}
             editable={props.editable}
+            onTaskEdit={props.onTaskEdit}
             onStatusIconClick={() => onStatusIconClickHandler(task)} />
     });
 

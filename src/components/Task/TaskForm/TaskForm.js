@@ -13,6 +13,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import PriorityButtons from './PriorityButtons/PriorityButtons';
 import ProjectButtons from './Projects/Projects';
 import Labels from './Labels/Labels';
+import { useEffect } from 'react';
 
 const TaskForm = (props) => {
     let [task, setTask] = useState('');
@@ -23,7 +24,10 @@ const TaskForm = (props) => {
     let [finishDateValid, setFinishDateValid] = useState(true);
 
     let [project, setProject] = useState('');
-
+    useEffect(() => {
+            setTask(props.task);
+            setFinishTime(props.finishTime);
+    }, [props])
     const onProjectChange = (e) => {
         setProject(e.target.value)
     }
@@ -89,7 +93,7 @@ const TaskForm = (props) => {
                 label="Finish Time"
                 value={finishTime}
                 error={!finishDateValid}
-                minDate={new Date()}
+                
                 fullWidth
                 onChange={(value) => setFinishTime(value)}
             />

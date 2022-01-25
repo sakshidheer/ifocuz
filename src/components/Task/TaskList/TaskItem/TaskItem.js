@@ -52,7 +52,7 @@ const TaskItem = props => {
 
                 <span className={classes.right}>
                 {editable ?<span className={classes.iconPanel}>
-                        <EditIcon style={{ color: '#137eec' }} fontSize="small" onClick={props.onTaskEditClick}/>
+                        <EditIcon style={{ color: '#137eec' }} fontSize="small" onClick={()=> props.onTaskEdit(props)}/>
                         <DeleteIcon color="secondary" fontSize="small" onClick={onDeleteIconClick} />
                     </span>: null}
 

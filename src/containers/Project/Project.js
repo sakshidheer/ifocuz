@@ -1,10 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import TaskForm from '../../components/Task/TaskForm/TaskForm';
 import TaskList from '../../components/Task/TaskList/TaskList';
+import Task from '../Tasks/Tasks';
 import classes from './Project.module.css'
-import invert from 'invert-color';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
 
 const Project = () => {
     let location = useLocation();
@@ -14,8 +12,7 @@ const Project = () => {
     return (<div
         className={classes.container}
         style={{ '--bgColor': theme }}>
-        <TaskForm />
-        <TaskList />
+        <Task/>
     </div>)
 }
 
