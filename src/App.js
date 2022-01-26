@@ -7,7 +7,6 @@ import Header from './components/Header/Header'
 import { useState } from 'react';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import classes from './App.module.css';
-import TaskList from './components/Task/TaskList/TaskList';
 import Project from './containers/Project/Project';
 
 function App() {

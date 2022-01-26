@@ -5,3 +5,9 @@
     color: var(--color) !important;
     flex-grow:1;
 }
+
+.moreBtn{
+    float: right;
+    color: black;
+    height: 30px;
+}

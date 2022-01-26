@@ -13,7 +13,8 @@ const ProjectButtons = (props) => {
     return (
         <FormControl
             fullWidth
-            variant="outlined">
+            variant="outlined"
+            disabled={props.disableProject}>
             <InputLabel shrink htmlFor="outlined-project-native-simple">Project</InputLabel>
             <Select
                 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classes from './TaskForm.module.css';
-import { connect } from 'react-redux';
 import { v4 } from 'uuid';
 import database from '../../../database';
 import { Button, TextField } from '@material-ui/core';
@@ -14,28 +13,32 @@ import PriorityButtons from './PriorityButtons/PriorityButtons';
 import ProjectButtons from './Projects/Projects';
 import Labels from './Labels/Labels';
 import { useEffect } from 'react';
+import { useRef } from 'react';
 
 const TaskForm = (props) => {
-    let [task, setTask] = useState('');
-    let [finishTime, setFinishTime] = useState(new Date());
-    let [priority, setPriority] = useState(Object.entries(props.priorities)[0][0]);
-    let [label, setLabel] = useState(props.labels[0].value);
+    let [task, setTask] = useState(props.task);
+    let [finishTime, setFinishTime] = useState(props.finishTime);
+    let [priority, setPriority] = useState(props.priority);
+    let [label, setLabel] = useState(props.label);
     let [taskValid, setTaskValid] = useState(true);
     let [finishDateValid, setFinishDateValid] = useState(true);
-
-    let [project, setProject] = useState('');
+    let [project, setProject] = useState(props.project);
+    let initialRender = useRef(true);
     useEffect(() => {
-            setTask(props.task);
-            setFinishTime(props.finishTime);
+        if (initialRender.current) {
+            initialRender.current = false;
+        }
+        setTask(props.task);
+        setFinishTime(props.finishTime);
+        setPriority(props.priority);
+        setProject(props.project);
+        setLabel(props.label);
     }, [props])
     const onProjectChange = (e) => {
         setProject(e.target.value)
     }
     const resetForm = () => {
-        setTask('')
-        setFinishTime(new Date());
-        setPriority(Object.entries(props.priorities)[0][0])
-        setLabel(props.labels[0].value)
+        props.resetForm();
     }
 
     const isFormValid = () => {
@@ -57,15 +60,19 @@ const TaskForm = (props) => {
         let isValid = isFormValid();
         if (!isValid)
             return;
-        database.todolist.add({
-            id: v4(),
+        let dbObj = {
+            id: props.editMode ? props.id : v4(),
             task: task,
             finishTime: finishTime,
             priority: priority,
             label: label,
             status: 0,
             project: project
-        });
+        };
+        if (props.editMode)
+            database.todolist.update(props.id, dbObj);
+        else
+            database.todolist.add(dbObj)
         resetForm();
     };
     const onPriorityChange = (e) => {
@@ -93,7 +100,7 @@ const TaskForm = (props) => {
                 label="Finish Time"
                 value={finishTime}
                 error={!finishDateValid}
-                
+
                 fullWidth
                 onChange={(value) => setFinishTime(value)}
             />
@@ -101,13 +108,14 @@ const TaskForm = (props) => {
         <div style={{ padding: '10px' }}></div>
         <Labels labels={props.labels} setLabel={setLabel} />
         <PriorityButtons
-            priority={props.priority}
+            priority={priority}
             onPriorityChange={onPriorityChange}
             priorities={props.priorities} />
         <div style={{ padding: '10px' }}></div>
         <ProjectButtons
             project={project}
-            onProjectChange={onProjectChange} />
+            onProjectChange={onProjectChange} 
+            disableProject={props.disableProject}/>
         <div className={classes.addContainer}>
             <Button variant="contained" color="secondary" onClick={addTask}>
                 Add Task
@@ -117,11 +125,4 @@ const TaskForm = (props) => {
     </div>
 };
 
-const mapStateToProps = state => {
-    return {
-        priorities: state.priorities,
-        labels: state.labels
-    }
-}
-
-export default connect(mapStateToProps)(TaskForm);
+export default TaskForm;
