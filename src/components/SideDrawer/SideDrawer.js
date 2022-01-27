@@ -11,14 +11,7 @@ import { useState } from "react";
 
 const SideDrawer = (props) => {
   const [showProjectForm, setShowProjectForm] = useState(false);
-  const onProjectAdd = (item) => {
-    if (item.id) db.projects.update(item.id, { name: item.name });
-    else
-      db.projects.add({
-        id: v4(),
-        name: item.name,
-        theme: item.theme
-      });
+  const onProjectAdd = () => {
       setShowProjectForm(false);
   };
   let form = null;
@@ -27,9 +20,7 @@ const SideDrawer = (props) => {
       onAdd={onProjectAdd}
       onClose={()=> setShowProjectForm(false)}/>
 
-  const onDelete = (id) => {
-    db.projects.where("id").equals(id).delete();
-  }
+  
   let projects = ProjectLists();
   return (
     <div

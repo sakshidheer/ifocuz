@@ -118,7 +118,7 @@ const TaskForm = (props) => {
             disableProject={props.disableProject}/>
         <div className={classes.addContainer}>
             <Button variant="contained" color="secondary" onClick={addTask}>
-                Add Task
+                {props.editMode? 'Edit': 'Add'} Task
             </Button>
         </div>
 

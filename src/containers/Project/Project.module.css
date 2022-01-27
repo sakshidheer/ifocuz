@@ -4,6 +4,7 @@
     background-color: var(--bgColor, transparent);
     color: var(--color) !important;
     flex-grow:1;
+    justify-content: space-between;
 }
 
 .moreBtn{

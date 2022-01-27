@@ -34,9 +34,8 @@ const TaskItem = props => {
     let project = null, projectSec = null;
     if (projects != null) {
         project = projects.find(item => item.id === props.project);
-        projectSec = project ? <div className={classes.projectSec}>{project.name}</div>: null;
+        projectSec = project ? <div className={classes.projectSec}>{project.name}</div> : null;
     }
-    debugger;   
     let editable = props.editable == null ? true : props.editable;
     return (
         <Fragment>
@@ -52,11 +51,11 @@ const TaskItem = props => {
                 <span className={classes.text}>{props.task}</span>
 
                 <span className={classes.right}>
-                <div className={classes.circle}></div>
-                {editable ?<span className={classes.iconPanel}>
-                        <EditIcon style={{ color: '#137eec' }} fontSize="small" onClick={()=> props.onTaskEdit(props)}/>
+                    <div className={classes.circle}></div>
+                    {editable ? <span className={classes.iconPanel}>
+                        {props.status === 2 ? null :<EditIcon style={{ color: '#137eec' }} fontSize="small" onClick={() => props.onTaskEdit(props)} />}
                         <DeleteIcon color="secondary" fontSize="small" onClick={onDeleteIconClick} />
-                    </span>: null}
+                    </span> : null}
 
                     <Chip
                         size="medium"
