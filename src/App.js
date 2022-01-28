@@ -8,11 +8,10 @@ import { useState } from 'react';
 import SideDrawer from './components/SideDrawer/SideDrawer';
 import classes from './App.module.css';
 import Project from './containers/Project/Project';
+import {isMobile} from 'react-device-detect';
 
 function App() {
-  const [showSideBar, setShowSideBar] = useState(true);
-
-
+  const [showSideBar, setShowSideBar] = useState(isMobile? false : true);
   return (
     <BrowserRouter basename="/ifocuz">
       <div className={classes.app}>

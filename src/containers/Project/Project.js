@@ -31,7 +31,11 @@ const Project = () => {
         show={show} onClose={() => setShow(false)}
         onAdd={onProjectEditComplete} />;
     const handleDelete = () => {
-        db.projects.where("id").equals(location.state.id).delete();
+        db.transaction('rw', db.projects, db.todolist, async ()=>{
+            db.projects.where("id").equals(location.state.id).delete();
+            db.todolist.where("project").equals(location.state.id).delete();
+        
+        });
         history.push("../../");
     }
 

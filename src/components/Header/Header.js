@@ -4,7 +4,11 @@ import listIcon from '@iconify-icons/bi/list';
 
 const Header = (props) => {
     return <div className={classes.header}>
-        <Icon height='30px' icon={listIcon} onClick ={props.onListIconClick}/>
+        <Icon
+            height='30px'
+            icon={listIcon}
+            onClick={props.onListIconClick}
+            style={{cursor: 'pointer'}} />
     </div>
 }
 

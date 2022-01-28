@@ -8,7 +8,6 @@
     background-color: white;
 }
 
-
 .addContainer {
     margin-top: 10px;
     justify-content: flex-end;
@@ -17,4 +16,10 @@
 
 .label {
     margin-top:10px;
+}
+
+@media (min-width:320px) {
+    .taskform{
+        width: 87%;
+    }
 }

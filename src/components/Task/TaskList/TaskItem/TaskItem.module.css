@@ -11,6 +11,12 @@
     background-color: white;
 }
 
+@media (min-width:320px) {
+    .tasklist{
+        width: 80%;
+    }
+}
+
 .circle{
     border-radius: 50%;
     width: 20px;
