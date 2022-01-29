@@ -11,7 +11,7 @@
     background-color: white;
 }
 
-@media (min-width:320px) {
+@media (max-width:420px) {
     .tasklist{
         width: 80%;
     }

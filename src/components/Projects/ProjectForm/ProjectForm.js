@@ -1,4 +1,4 @@
-import { Button, TextField, Paper, InputLabel } from '@material-ui/core';
+import { Button, TextField, Paper } from '@material-ui/core';
 import { useState } from 'react';
 import classes from './ProjectForm.module.css';
 import { CirclePicker } from 'react-color';
@@ -13,9 +13,13 @@ const ProjectForm = (props) => {
     let history = useHistory();
     let text = props.id ? 'Edit' : 'Add';
     const onAddClick = (e) => {
+        if(name === ''){
+            setIsNameValid(false);
+            return ;
+        }
         if (props.id) {
-            db.projects.
-                update(props.id, { name: name, theme: theme })
+            db.projects
+                .update(props.id, { name: name, theme: theme })
                 .then(function () {
                     props.onAdd();
                     history.replace(name,{
@@ -34,6 +38,12 @@ const ProjectForm = (props) => {
         props.onAdd();
         e.stopPropagation();
     }
+
+    const onNameChange = (e) =>{
+        setIsNameValid(true);
+        setName(e.target.value);
+
+    }
     return (
         <div className={classes.container} onClick={props.onClose}>
             <Paper className={classes.form} onClick={(e) => e.stopPropagation()}>
@@ -51,7 +61,7 @@ const ProjectForm = (props) => {
                     InputLabelProps={{
                         shrink: true,
                     }}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={onNameChange}
                 />
                 <fieldset className={classes.theme}>
                     <legend>Theme</legend>

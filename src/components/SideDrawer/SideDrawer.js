@@ -4,8 +4,10 @@ import ExpandableNavSection from "../ExpandableNavSection/ExpandableNavSection";
 import { ProjectLists } from '../../db/ProjectDBUtil'
 import ProjectForm from "../Projects/ProjectForm/ProjectForm";
 import { useState } from "react";
-
+import DrawerContext from "../../Drawer-context";
+import { useContext } from "react";
 const SideDrawer = (props) => {
+  const drawer = useContext(DrawerContext);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const onProjectAdd = () => {
       setShowProjectForm(false);
@@ -23,10 +25,13 @@ const SideDrawer = (props) => {
       className={classes.SideDrawer}
       style={{ display: props.visible ? "" : "none" }}
     >
-      <NavLink activeClassName={classes.active} exact to="/">
+      <NavLink activeClassName={classes.active} 
+      exact to="/"
+      onClick={drawer.hideSideBarIfMobile}>
         Home
       </NavLink>
-      <NavLink activeClassName={classes.active} to="/tasks">
+      <NavLink activeClassName={classes.active} to="/tasks"
+      onClick={drawer.hideSideBarIfMobile}>
         Tasks
       </NavLink>
       <ExpandableNavSection
