@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 import Labels from "./Labels"
 
 test("Label render",()=>{
@@ -14,9 +14,11 @@ test("Label render",()=>{
         displayName: 'Three'
     }];
 
-    const onChange = jest.fn;
+    const onChange = jest.fn();
     render(<Labels labels={labels} setLabel={onChange}/>)
     
     const options = screen.getAllByRole('option');
     expect(options.length).toBe(3);
+    fireEvent.change(screen.getByRole('combobox'), {target:{value:2}})
+    expect(onChange).toBeCalled()
 })
