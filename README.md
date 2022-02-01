@@ -37,6 +37,12 @@ Start the server
 
 ## Running Tests
 
-./coverage/badge-statements.svg
+./badges/badge-lines.svg
+
+./badges/badge-functions.svg
+
+./badges/badge-statements.svg
+
+./badges/badge-branches.svg
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
