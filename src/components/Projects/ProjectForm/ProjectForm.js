@@ -11,7 +11,7 @@ const ProjectForm = (props) => {
     let [isNameValid, setIsNameValid] = useState(true);
     let [theme, setTheme] = useState(props.id ? props.theme : '#ccc');
     let history = useHistory();
-    let text = props.id ? 'Edit' : 'Add';
+    let text = props.id ? 'Edit' : 'Add New';
     const onAddClick = (e) => {
         if(name === ''){
             setIsNameValid(false);
@@ -47,7 +47,7 @@ const ProjectForm = (props) => {
     return (
         <div className={classes.container} onClick={props.onClose}>
             <Paper className={classes.form} onClick={(e) => e.stopPropagation()}>
-                <div>{text} New Project</div>
+                <div>{text} Project</div>
                 <TextField
                     id="name"
                     label="Name"
