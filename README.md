@@ -37,6 +37,10 @@ Start the server
 
 ## Running Tests
 
-./coverage/badge-statements.svg
+```bash
+  npm run test
+```
+
+![Coverage](./badges/badge-lines.svg)   ![Coverage](./badges/badge-functions.svg)  ![Coverage](./badges/badge-statements.svg)  ![Coverage](./badges/badge-branches.svg)
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
