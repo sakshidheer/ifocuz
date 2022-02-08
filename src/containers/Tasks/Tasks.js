@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TaskForm from '../../components/Task/TaskForm/TaskForm';
 import TaskList from '../../components/Task/TaskList/TaskList';
 import classes from './Tasks.module.css'
@@ -22,6 +22,12 @@ const Task = (props) => {
         project: intialProjectValue
     }
     let [task, setTask] = useState(defaultTask);
+    useEffect(()=>{
+        setTask({
+            ...defaultTask,
+            project: location.state.id
+        })
+    },[location.state.id])
     const onTaskEdit = (props) => {
         setTask({
             editMode: true,

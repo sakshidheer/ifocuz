@@ -74,7 +74,7 @@ const ProjectForm = (props) => {
                 <div className={classes.btnContainer}>
                     <Button variant="contained"
                         color="secondary" onClick={onAddClick}>
-                        {text} Task
+                        {props.id ? 'Edit' : 'Add'} Project
                     </Button>
                 </div>
             </Paper>
