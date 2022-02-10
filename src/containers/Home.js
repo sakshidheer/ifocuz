@@ -3,7 +3,7 @@ import TaskList from '../components/Task/TaskList/TaskList';
 import { Switch, FormControlLabel } from '@material-ui/core';
 import { useState } from 'react';
 
-const Home = props => {
+const Home = () => {
     let [hideDone, setHideDone] = useState(false);
 
     return <div>

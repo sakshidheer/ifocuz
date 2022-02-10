@@ -22,12 +22,13 @@ const Task = (props) => {
         project: intialProjectValue
     }
     let [task, setTask] = useState(defaultTask);
-    useEffect(()=>{
-        setTask({
-            ...defaultTask,
-            project: location.state.id
-        })
-    },[location.state.id])
+    useEffect(() => {
+        if (location && location.state && location.state.id)
+            setTask({
+                ...defaultTask,
+                project: location.state.id
+            })
+    }, [location.state])
     const onTaskEdit = (props) => {
         setTask({
             editMode: true,
@@ -45,12 +46,12 @@ const Task = (props) => {
     }
 
     return <div className={classes.container}>
-        <TaskForm 
-        {...task} 
-        resetForm={resetForm}
-        labels={props.labels} 
-        priorities={props.priorities}
-        disableProject={disableProject}/>
+        <TaskForm
+            {...task}
+            resetForm={resetForm}
+            labels={props.labels}
+            priorities={props.priorities}
+            disableProject={disableProject} />
         <TaskList onTaskEdit={onTaskEdit} />
     </div>
 }
