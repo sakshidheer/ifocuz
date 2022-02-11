@@ -93,6 +93,9 @@ const TaskForm = (props) => {
             InputLabelProps={{
                 shrink: true,
             }}
+            inputProps={{
+                maxLength: 150,
+            }}
             onChange={(e) => setTask(e.target.value)}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
